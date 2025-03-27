@@ -1,11 +1,27 @@
+
 #container {
-  text-align: center;
+  text-align: start;
 
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
+  top: 80%;
   transform: translateY(-50%);
+  padding: 0 5%;
+}
+ion-range{
+  padding: 0 15%;
+  --bar-background: #a2d2ff;
+  --bar-background-active: #bde0fe;
+  --bar-height: 5px;
+  --bar-border-radius: 8px;
+  --knob-background: #d95386;
+  --knob-size: 32px;
+  --pin-background: #ffafcc;
+  --pin-color: #fff;
+}
+ion-radio{
+  font-size: 15px;
 }
 
 #container strong {
