@@ -21,7 +21,7 @@ export class HomePage {
   gorjeta = 0;
   valorConta = 0;
   valorTotalConta = 0;
-  
+
 
   valorRangeUM = 0;
   valorRangeKm = 0;
@@ -34,7 +34,8 @@ export class HomePage {
 
   valorRangeAltura = 0;
   valorRangePeso = 0;
-  valorIMC = 0;
+  valorIMC = "";
+  classificarIMC = "";
 
   // onIonChange(ev:RangeCustomEvent){
   //   this.valorRange = parseInt(ev.detail.value.toString());
@@ -64,18 +65,28 @@ export class HomePage {
   }
 
   atualizarAltura(ev: RangeCustomEvent) {
-    this.valorRangeAltura = Number(ev.detail.value.toString()); 
+    this.valorRangeAltura = Number(ev.detail.value.toString());
     this.calcularIMC();
   }
 
   atualizarPeso(ev: RangeCustomEvent) {
-    this.valorRangePeso = Number(ev.detail.value.toString()); 
+    this.valorRangePeso = Number(ev.detail.value.toString());
     this.calcularIMC();
   }
 
   calcularIMC(){
     const alturaMetro = this.valorRangeAltura / 100;
-    this.valorIMC = this.valorRangePeso/ (alturaMetro*alturaMetro);
+    this.valorIMC = Number(this.valorRangePeso/ (alturaMetro*alturaMetro)).toFixed(2);
+
+    if(Number(this.valorIMC) < 18.5){
+      this.classificarIMC = `${this.valorIMC}. Você está abaixo do peso!`
+    }else if(Number(this.valorIMC) >= 18.5 && Number(this.valorIMC) <= 24.9){
+      this.classificarIMC = `${this.valorIMC}. Você está saudável!`
+    }else if(Number(this.valorIMC) >= 25 && Number(this.valorIMC) < 30){
+      this.classificarIMC = `${this.valorIMC}. Você está sobrepeso!`
+    }else{
+      this.classificarIMC = `${this.valorIMC}. Você está obeso!`
+    }
 
   }
 

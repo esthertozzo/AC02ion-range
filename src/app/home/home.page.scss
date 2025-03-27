@@ -1,11 +1,10 @@
 
 #container {
   text-align: start;
-
   position: absolute;
   left: 0;
   right: 0;
-  top: 80%;
+  top: 65%;
   transform: translateY(-50%);
   padding: 0 5%;
 }
@@ -40,4 +39,10 @@ ion-radio{
 
 #container a {
   text-decoration: none;
+}
+#imc{
+  height: 15vh;
+}
+ion-label span{
+  font-weight: 800;
 }
