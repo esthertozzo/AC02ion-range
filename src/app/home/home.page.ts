@@ -64,17 +64,18 @@ export class HomePage {
   }
 
   atualizarAltura(ev: RangeCustomEvent) {
-    this.valorRangeAltura = Number(ev.detail.value.toString()) / 100; 
-    this.calcularIMC();
-  }
-
-  atualizarPeso(ev: RangeCustomEvent) {
     this.valorRangeAltura = Number(ev.detail.value.toString()); 
     this.calcularIMC();
   }
 
+  atualizarPeso(ev: RangeCustomEvent) {
+    this.valorRangePeso = Number(ev.detail.value.toString()); 
+    this.calcularIMC();
+  }
+
   calcularIMC(){
-    this.valorIMC = this.valorRangePeso/ (this.valorRangeAltura*this.valorRangeAltura);
+    const alturaMetro = this.valorRangeAltura / 100;
+    this.valorIMC = this.valorRangePeso/ (alturaMetro*alturaMetro);
 
   }
 

@@ -87,14 +87,12 @@
     </ion-item-divider>
     
 
-  <ion-toolbar>
     <ion-title size="small">Selecione sua altura (em metros)</ion-title>
-  </ion-toolbar>
-  <ion-range (ionChange)="atualizarAltura($event)" [min]="0" [max]="300" value="valorRangeAltura" [(ngModel)]="valorRangeAltura"></ion-range>
+  <ion-range [min]="0" [max]="300" [(ngModel)]="valorRangeAltura" (ionChange)="atualizarAltura($event)"></ion-range>
   <ion-label>{{valorRangeAltura}}</ion-label>
   
     <ion-title size="small">Selecione seu peso (em quilogramas)</ion-title>
-  <ion-range (ionChange)="atualizarPeso($event)" [min]="0" [max]="300" value="valorRangePeso" [(ngModel)]="valorRangePeso"></ion-range>
+  <ion-range [min]="0" [max]="300" [(ngModel)]="valorRangePeso" (ionChange)="atualizarPeso($event)"></ion-range>
   <ion-label>{{valorRangePeso}}</ion-label>
 
   <ion-toolbar>
