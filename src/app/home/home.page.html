@@ -10,112 +10,337 @@
   <ion-header [translucent]="true">
     <ion-toolbar>
       <ion-title>
-        Exercícios ion-alert
+        Exercícios ionic
       </ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-content [fullscreen]="true">
-   <div id="container">
+  <!-- inicio secao container de todos os apps -->
+    <div id="container">
 
-    <!-- <ion-range (ionChange)="onIonChange($event)"></ion-range>
-    <ion-range (ionChange)="onIonChange($event)" [snaps]="true" [ticks]="true" [min]="0" [max]="10"></ion-range>
+      <!-- inicio da seçao do app de transporte -->
+      <div id="transporte">
+        <ion-item-divider>
+          <ion-label>
+            <ion-title size="large">App de Transporte</ion-title>
+          </ion-label>
+        </ion-item-divider>
 
-    <ion-range (ionChange)="onIonChange($event)">
-      <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
-      <ion-icon slot="end" name="add-circle-outline"></ion-icon>
-    </ion-range>
+        <ion-toolbar><ion-title size="small">Selecione o tipo de carro</ion-title></ion-toolbar>
 
-    <ion-label>{{valorRange}}</ion-label> -->
-<ion-item></ion-item>
-    <ion-item-divider>
-      <ion-label>
-        <ion-title size="large">Calcular Gorjeta</ion-title>
-      </ion-label>
-    </ion-item-divider>
+        <ion-item>
+          <!-- radio-group para selecionar o tipo do carro e vincular ao ngModel "tipoCarro" -->
+          <ion-radio-group [allowEmptySelection]="true" value="tipoCarro" [(ngModel)]="tipoCarro">
+            <!-- o value dos ion-radio é o mesmo atributo que esta conectado no ts -->
+            <ion-radio value="normal">Normal</ion-radio><br />
+            <ion-radio value="superior">Superior</ion-radio><br />
+            <ion-radio value="vip">Vip</ion-radio><br />
+          </ion-radio-group>
+        </ion-item>
 
-    <ion-item>
-      <ion-input type="number" label="Digite o valor da conta" labelPlacement="floating" [(ngModel)]="valorConta"></ion-input>
-    </ion-item>
-      <ion-range (ionChange)="calcularGorjeta($event)" [pin]="true" [snaps]="true" [ticks]="true" [min]="0" [max]="30"></ion-range>
+         <ion-item>
+          <!-- input para digitar o tanto de km rodado -->
+          <ion-input type="number" label="Digite os km´s rodados" labelPlacement="floating"
+            [(ngModel)]="valorKM"></ion-input>
+        </ion-item>
+        <!-- botao para disparar o alert onde estará a resposta final e chama a função verificarValorViagem() para realizar o calculo -->
+        <ion-button expand="true" id="ver-valorFinal" (click)="verificarValorViagem()">Verificar</ion-button>
 
-
-  <!--
-    <br><ion-button fill="outline" size="default" color="tertiary" (click)="calcularGorjeta()">calcular gorjeta</ion-button> -->
-
-
-    <ion-title size="small">Valor da gorjeta: {{gorjeta}}</ion-title>
-    <br><ion-title size="small">Valor total da conta: {{valorTotalConta}}</ion-title>
-    <ion-item></ion-item>
-
-    <ion-item-divider>
-      <ion-label>
-          <ion-title size="large">Converter Valores</ion-title>
-      </ion-label>
-    </ion-item-divider>
-
-    <ion-toolbar><ion-title size="small">Escolha uma unidade de medida</ion-title></ion-toolbar>
-
-    <ion-item>
-      <ion-radio-group [allowEmptySelection]="true" value="turtles" value="tipoMedida" [(ngModel)]="tipoMedida">
-        <ion-radio value="quilometros">Quilometros</ion-radio><br />
-        <ion-radio value="metros">Metros</ion-radio><br />
-      </ion-radio-group>
-    </ion-item>
-
-    <ion-toolbar><ion-title size="small">Escolha outra unidade de medida</ion-title></ion-toolbar>
-    <ion-item>
-      <ion-radio-group [allowEmptySelection]="true" value="turtles" value="tipoMedidaConverter" [(ngModel)]="tipoMedidaConverter">
-        <ion-radio value="milhas">Milhas</ion-radio><br />
-        <ion-radio value="pes">Pés</ion-radio><br />
-      </ion-radio-group>
-    </ion-item>
-
-    <ion-range (ionChange)="converterMedidas($event)"></ion-range>
-
-    <ion-title size="small">Valor do Range: {{valorRangeUM}}</ion-title>
-    <br><ion-title size="small">Resultado da Conversão: {{convertido}}</ion-title>
-    <ion-item></ion-item>
+        <!-- alert da resposta final -->
+        <!-- o trigger do alert corresponde com o id do botao que é apertado para ele ser disparado -->
+        <ion-alert trigger="ver-valorFinal" header="Valores Finais"
+          message="Valor da Viagem: {{valorViagem}}; Valor do APP: {{valorApp}}; Valor do Motorista: {{valorMotorista}}"
+          [buttons]="alertButtons"></ion-alert>
+      </div>
+      <!-- fim da seçao do app de transporte -->
 
 
 
-<div id="imc">
-  <ion-item-divider>
-    <ion-label>
-      <ion-title size="large">Calculadora de IMC</ion-title>
-    </ion-label>
-  </ion-item-divider>
+      <!-- inicio seção de cálculo de gasto com combustível -->
+      <div id="combustivel">
+        <ion-item-divider>
+          <ion-label>
+            <ion-title size="large">Cálculo de gasto de combustível</ion-title>
+          </ion-label>
+        </ion-item-divider>
 
-<ion-item><ion-title size="small">Selecione sua altura (em centímetros)</ion-title></ion-item>
-  <ion-item>
-    <ion-range [min]="0" [max]="300" [(ngModel)]="valorRangeAltura" (ionChange)="atualizarAltura($event)"></ion-range>
-    <ion-label>{{valorRangeAltura}} cm</ion-label>
-  </ion-item>
+        <ion-toolbar><ion-title size="small">Selecione o tipo de combustível</ion-title></ion-toolbar>
 
+        <ion-item>
+          <!-- radio-group para selecionar o tipo de combustível -->
+          <ion-radio-group [allowEmptySelection]="true" value="tipoCombustivel"
+            [(ngModel)]="tipoCombustivel">
+            <ion-radio value="gasolina"><span>Gasolina:</span> R$5,00 por litro - roda 12km/l</ion-radio><br />
+            <ion-radio value="etanol"><span>Etanol:</span> R$4,00 por litro - roda 9km/l</ion-radio><br />
+            <ion-radio value="diesel"><span>Diesel:</span> R$6,00 por litro - roda 15km/l</ion-radio><br />
+          </ion-radio-group>
+        </ion-item>
 
-<ion-item><ion-title size="small">Selecione seu peso (em quilogramas)</ion-title></ion-item>
-<ion-item>
-  <ion-range [min]="0" [max]="300" [(ngModel)]="valorRangePeso" (ionChange)="atualizarPeso($event)"></ion-range>
-  <ion-label>{{valorRangePeso}} kg</ion-label>
-</ion-item>
-
-
-<ion-toolbar>
-  <ion-label><span>Seu IMC:</span> {{classificarIMC}}</ion-label>
-</ion-toolbar>
-</div>
-
-
-
-
-
-  <!-- <ion-radio-group [allowEmptySelection]="true" value="turtles" value="tipoUnidade" [(ngModel)]="tipoUnidade">
-    <ion-radio value="milhas">Milhas</ion-radio><br />
-    <ion-radio value="pes">Pés</ion-radio><br />
-  </ion-radio-group> -->
-
-  </div>
-  </ion-content>
+        <ion-item>
+          <!-- input para informar a quilometragem rodada -->
+          <ion-input type="number" label="Digite os km´s rodados" labelPlacement="floating"
+            [(ngModel)]="valorKMCombustivel"></ion-input>
+        </ion-item>
+          <!-- botão que chama a função verificarValorCombustivel() para calcular valor de combustível -->
+        <ion-button expand="true" id="ver-valorCombustivel" (click)="verificarValorCombustivel()">Verificar</ion-button>
+        <!-- alerta exibindo o valor final calculado -->
+        <ion-alert trigger="ver-valorCombustivel" header="Valor Final"
+          message="Valor a pagar pelo combustível: R$ {{valorFinalCombustivel}}" [buttons]="alertButtons1"></ion-alert>
+      </div>
+      <!-- fim seção de cálculo de gasto com combustível -->
 
 
+      <!-- inicio da seção de conversão de temperatura -->
+      <div id="converterUnidades">
+        <ion-toolbar>
+          <ion-title size="large">Converter unidades de Temperatura</ion-title>
+        </ion-toolbar>
+
+        <ion-item>
+          <!-- input para temperatura em Celsius -->
+          <ion-input type="number" label="Digite uma temperatura em Celsius" labelPlacement="floating"
+            [(ngModel)]="grausCelsius"></ion-input>
+        </ion-item>
+
+        <!-- botão para converter Celsius para Fahrenheit que chama a função celsiusParaFahrenheit() -->
+        <br><ion-button fill="outline" size="default" color="tertiary" (click)="celsiusParaFahrenheit()">converter para
+          Fahrenheit</ion-button>
+        <!-- resultado da conversão para Fahrenheit no html -->
+        <br><ion-label>{{FahrenheitValor}}</ion-label>
+
+        <br><ion-item>
+           <!-- input para temperatura em Fahrenheit -->
+          <ion-input type="number" label="Digite uma temperatura em Fahrenheit" labelPlacement="floating"
+            [(ngModel)]="grausFahrenheit"></ion-input>
+        </ion-item>
+
+        <!-- botão para converter Fahrenheit para Celsius e chama a função fahrenheitParaCelsius() -->
+        <br><ion-button fill="outline" size="default" color="tertiary" (click)="fahrenheitParaCelsius()">converter para
+          celsius</ion-button>
+        <!-- resultado da conversão para Celsius no html -->
+        <br><ion-label>{{CelsiusValor}}</ion-label>
+      </div>
+      <!-- fim da seção de conversão de temperatura -->
+
+      <!-- início da seção para verificação de tipo de triângulo -->
+      <div id="triangulo">
+        <ion-toolbar>
+          <ion-title size="large">Verificar Triângulo</ion-title>
+        </ion-toolbar>
+
+        <!-- inputs dos três lados do triângulo. chamam o [(ngModel)] de cada lado para ser indicado no ts -->
+        <ion-item>
+          <ion-input type="number" label="Digite o primeiro lado" labelPlacement="floating"
+            [(ngModel)]="lado1"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" label="Digite o segundo lado" labelPlacement="floating"
+            [(ngModel)]="lado2"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" label="Digite o terceiro lado" labelPlacement="floating"
+            [(ngModel)]="lado3"></ion-input>
+        </ion-item>
+
+        <!-- botão para verificar se forma um triângulo e qual o tipo -->
+        <br><ion-button fill="outline" size="default" color="tertiary" (click)="verificarTriangulo()">verificar
+          Triângulo</ion-button>
+
+          <!-- resultado da verificação do triângulo -->
+        <br><ion-label>{{triangulo}}</ion-label>
+      </div>
+      <!-- fim da seção para verificação de tipo de triângulo -->
+
+       <!-- início da seção para cálculo de média -->
+      <div id="media">
+        <ion-toolbar>
+          <ion-title size="large">Calcular média</ion-title>
+        </ion-toolbar>
+
+        <!-- inputs das quatro notas -->
+        <ion-item>
+          <ion-input type="number" label="Digite a nota 1" labelPlacement="floating" [(ngModel)]="nota1"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" label="Digite a nota 2" labelPlacement="floating" [(ngModel)]="nota2"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" label="Digite a nota 3" labelPlacement="floating" [(ngModel)]="nota3"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input type="number" label="Digite a nota 4" labelPlacement="floating" [(ngModel)]="nota4"></ion-input>
+        </ion-item>
+
+         <!-- botão para calcular média -->
+        <br><ion-button fill="outline" size="default" color="tertiary" (click)="media()">verificar média</ion-button>
+
+         <!-- exibição do resultado da média -->
+        <br><ion-label>{{definicaoMedia}}</ion-label>
+      </div>
+      <!-- fim da seção para cálculo de média -->
+
+       <!-- início da seção para cálculo de gorjeta -->
+      <div id="gorjeta">
+        <ion-item></ion-item>
+        <ion-item-divider>
+          <ion-label>
+            <ion-title size="large">Calcular Gorjeta</ion-title>
+          </ion-label>
+        </ion-item-divider>
+
+        <ion-item>
+           <!-- input para digitar o valor da conta -->
+          <ion-input type="number" label="Digite o valor da conta" labelPlacement="floating"
+            [(ngModel)]="valorConta"></ion-input>
+        </ion-item>
+
+        <!-- ion-range para selecionar o percentual da gorjeta. chama a função calcularGorjeta($event) -->
+        <ion-range (ionChange)="calcularGorjeta($event)" [pin]="true" [snaps]="true" [ticks]="true" [min]="0"
+          [max]="30"></ion-range>
+
+        <!-- exibição da gorjeta e valor total -->
+        <ion-title size="small">Valor da gorjeta: {{gorjeta}}</ion-title>
+        <br><ion-title size="small">Valor total da conta: {{valorTotalConta}}</ion-title>
+        <ion-item></ion-item>
+      </div>
+       <!-- fim da seção para cálculo de gorjeta -->
+
+       <!-- início da seção de conversão de medidas -->
+      <div id="converterMedidas">
+        <ion-item-divider>
+          <ion-label>
+            <ion-title size="large">Converter Medidas</ion-title>
+          </ion-label>
+        </ion-item-divider>
+
+        <ion-toolbar><ion-title size="small">Escolha uma unidade de medida</ion-title></ion-toolbar>
+
+        <ion-item>
+           <!-- ion-radio-group para seleção da unidade de origem -->
+          <ion-radio-group [allowEmptySelection]="true" value="turtles" value="tipoMedida" [(ngModel)]="tipoMedida">
+            <ion-radio value="quilometros">Quilometros</ion-radio><br />
+            <ion-radio value="metros">Metros</ion-radio><br />
+          </ion-radio-group>
+        </ion-item>
+
+        <ion-toolbar><ion-title size="small">Escolha outra unidade de medida</ion-title></ion-toolbar>
+        <ion-item>
+          <!-- ion-radio-group para seleção da unidade de destino -->
+          <ion-radio-group [allowEmptySelection]="true" value="turtles" value="tipoMedidaConverter"
+            [(ngModel)]="tipoMedidaConverter">
+            <ion-radio value="milhas">Milhas</ion-radio><br />
+            <ion-radio value="pes">Pés</ion-radio><br />
+          </ion-radio-group>
+        </ion-item>
+
+        <!-- ion-range para definir valor a ser convertido -->
+        <ion-range (ionChange)="converterMedidas($event)"></ion-range>
+
+        <!-- exibição do valor do range selecionado e resultado da conversão -->
+        <ion-title size="small">Valor do Range: {{valorRangeUM}}</ion-title>
+        <br><ion-title size="small">Resultado da Conversão: {{convertido}}</ion-title>
+        <ion-item></ion-item>
+      </div>
+      <!-- fim da seção de conversão de medidas -->
+
+
+       <!-- início da seção de IMC -->
+      <div id="imc">
+        <ion-item-divider>
+          <ion-label>
+            <ion-title size="large">Calculadora de IMC</ion-title>
+          </ion-label>
+        </ion-item-divider>
+
+        <ion-item><ion-title size="small">Selecione sua altura (em centímetros)</ion-title></ion-item>
+        <ion-item>
+           <!-- range para selecionar altura. com valor maximo de 300 cm (ate 3 metros) -->
+          <ion-range [min]="0" [max]="300" [(ngModel)]="valorRangeAltura"
+            (ionChange)="atualizarAltura($event)"></ion-range>
+          <ion-label>{{valorRangeAltura}} cm</ion-label>
+        </ion-item>
+
+
+        <ion-item><ion-title size="small">Selecione seu peso (em quilogramas)</ion-title></ion-item>
+        <ion-item>
+           <!-- range para selecionar peso. com valor maximo de 300 kg -->
+          <ion-range [min]="0" [max]="300" [(ngModel)]="valorRangePeso" (ionChange)="atualizarPeso($event)"></ion-range>
+          <ion-label>{{valorRangePeso}} kg</ion-label>
+        </ion-item>
+
+        <ion-toolbar>
+          <!-- resultado do IMC -->
+          <ion-label><span>Seu IMC:</span> {{classificarIMC}}</ion-label>
+        </ion-toolbar>
+      </div>
+      <!-- fim da seção de IMC -->
+
+
+       <!-- início da seção de empréstimo -->
+      <div id="emprestimo">
+        <ion-item-divider>
+          <ion-label>
+            <ion-title size="large">Calcular valores de empréstimo</ion-title>
+          </ion-label>
+        </ion-item-divider>
+        <!-- ion-range para o usuário selecionar o valor do emprestimo. com valor minimo de 1000 e maximo de 10000 reais. chama a função selecionarEmprestimo($event) -->
+        <ion-item>
+          <ion-range labelPlacement="stacked" label="Selecione o valor do empréstimo" [min]="1000" [max]="10000"
+            [pin]="true" [(ngModel)]="valorEmprestimo" (ionChange)="selecionarEmprestimo($event)"></ion-range>
+        </ion-item>
+
+        <!-- ion-range para selecionar a porcentagem de Juros Anual. chama a função selecionarJuros($event) -->
+        <ion-item>
+          <ion-range labelPlacement="stacked" label="Selecione a porcentagem de Juros Anual" [min]="0" [max]="100"
+            aria-label="Range with pin" [pin]="true" [(ngModel)]="porcentagemJurosAnual"
+            (ionChange)="selecionarJuros($event)"></ion-range>
+        </ion-item>
+
+        <!-- ion-range para selecionar o número de meses. chama a função selecionarMeses($event) -->
+        <ion-item>
+          <ion-range labelPlacement="stacked" label="Selecione o número de meses" [ticks]="true" [snaps]="true"
+            [min]="0" [max]="100" [pin]="true" [(ngModel)]="NumMeses" (ionChange)="selecionarMeses($event)"></ion-range>
+        </ion-item>
+
+        <ion-toolbar>
+          <!-- resultado da prestação mensal e total a pagar -->
+          <ion-label><span>Prestação Mensal:</span> {{prestacaoMesal}}</ion-label>
+          <br>
+          <ion-label><span>Total a pagar:</span> {{totalPagar}}</ion-label>
+        </ion-toolbar>
+      </div>
+      <!-- fim da seção de empréstimo -->
+
+
+      <!-- inicio seção para calcular o desconto de um produto -->
+      <div id="desconto">
+        <ion-item-divider>
+          <ion-label>
+            <ion-title size="large">Calcular desconto de produto</ion-title>
+          </ion-label>
+        </ion-item-divider>
+
+        <ion-item>
+          <!-- input para o usuário digitar o valor do produto -->
+          <ion-input type="number" label="Digite o valor do produto" labelPlacement="floating"
+            [(ngModel)]="valorProduto"></ion-input>
+        </ion-item>
+        <!-- ion-range para o usuário selecionar o valor do dsconto -->
+        <ion-item>
+          <ion-range labelPlacement="stacked" label="Selecione a porcentagem do desconto desejado" [min]="0" [max]="100"
+            [pin]="true" [ticks]="true" [snaps]="true" [(ngModel)]="porcentDesconto"
+            (ionChange)="calcularDesconto($event)"></ion-range>
+        </ion-item>
+
+        <ion-toolbar>
+           <!-- exibição do valor final com o desconto aplicado -->
+          <ion-label><span>Valor com desconto:</span> {{descontoDado}}</ion-label>
+        </ion-toolbar>
+      </div>
+       <!-- fim seção para calcular o desconto de um produto -->
+
+
+    </div>
+    <!-- fim secao container de todos os apps -->
 </ion-content>

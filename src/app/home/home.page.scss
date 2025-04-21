@@ -4,7 +4,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 65%;
+  top: 210%;
   transform: translateY(-50%);
   padding: 0 5%;
 }
@@ -41,8 +41,30 @@ ion-radio{
   text-decoration: none;
 }
 #imc{
-  height: 15vh;
+  height: 40vh;
 }
+#emprestimo{
+  height: 50vh;
+}
+#desconto{
+  height: 30vh;
+}
+#transporte{
+  height: 40vh;
+}
+#combustivel{
+height: 40vh;
+}
+#converterUnidades{
+  height: 40vh;
+}
+#triangulo{
+  height: 40vh;
+}
+#media{
+  height: 40vh;
+}
+
 ion-label span{
   font-weight: 800;
 }
